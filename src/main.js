@@ -8,9 +8,6 @@ import Meta from 'vue-meta';
 
 const app = createApp(App)
 
-
-
-app.use(router)
-app.use(Meta);
+app.use(router, Meta)
 app.config.globalProperties.axios = axios
 app.mount('#app')

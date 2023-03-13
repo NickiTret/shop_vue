@@ -152,7 +152,16 @@ export default {
     RouterLink,
   },
   metaInfo: {
-    meta: [{ vmid: "charset", charset: "utf-8" }],
+    title: "Vue App",
+    meta: [
+      { vmid: "description", property: "description", content: "Vue App" },
+      { vmid: "og:title", property: "og:title", content: "Vue App" },
+      {
+        vmid: "og:description",
+        property: "og:description",
+        content: "Vue App",
+      },
+    ],
   },
   data() {
     return {
