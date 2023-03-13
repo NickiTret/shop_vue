@@ -1,71 +1,73 @@
 <template>
-      <section class="bg-dark-30 showcase-page-header module parallax-bg" data-background="assets/images/showcase_bg.jpg">
-        <div class="titan-caption">
-          <div class="caption-content">
-            <div class="font-alt mb-30 titan-title-size-1">Сайт портфолио. Дизайн и веб-разработка.</div>
-            <div class="font-alt mb-40 titan-title-size-4">Третьяков Никита</div><a class="section-scroll btn btn-border-w btn-round" href="#demos">см. Резюме</a>
+  <section
+    class="bg-dark-30 showcase-page-header module parallax-bg"
+    data-background="assets/images/showcase_bg.jpg"
+  >
+    <div class="titan-caption">
+      <div class="caption-content">
+        <div class="font-alt mb-30 titan-title-size-1">
+          Сайт портфолио. Дизайн и веб-разработка.
+        </div>
+        <div class="font-alt mb-40 titan-title-size-4">Третьяков Никита</div>
+        <a class="section-scroll btn btn-border-w btn-round" href="#demos"
+          >см. Резюме</a
+        >
+      </div>
+    </div>
+  </section>
+  <div class="main showcase-page">
+    <section class="module-medium" id="demos">
+      <div class="container">
+        <div v-for="project in projects" :key="project.id" class="row multi-columns-row">
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <router-link :props="project" class="content-box" :to="{name: 'project', params: { id: `${project.id}`}}">
+              <div class="content-box-image">
+                <img
+                  :src="project.preview_image_url"
+                  :alt="project.title"/>
+              </div>
+              <h3 class="content-box-title font-serif">{{ project.title }}</h3></router-link>
           </div>
         </div>
-      </section>
-      <div class="main showcase-page">
-        <section class="module-medium" id="demos">
-          <div class="container">
-            <div class="row multi-columns-row">
-              <div class="col-md-4 col-sm-6 col-xs-12"><a class="content-box" href="index_mp_fullscreen_video_background.html">
-                  <div class="content-box-image"><img src="assets/images/screenshots/main_demo.jpg" alt="Main Demo"></div>
-                  <h3 class="content-box-title font-serif">Main Demo</h3></a></div>
-              <div class="col-md-4 col-sm-6 col-xs-12"><a class="content-box" href="index_agency.html">
-                  <div class="content-box-image"><img src="assets/images/screenshots/agency.jpg" alt="Agency"></div>
-                  <h3 class="content-box-title font-serif">Agency</h3></a></div>
-              <div class="col-md-4 col-sm-6 col-xs-12"><a class="content-box" href="index_portfolio.html">
-                  <div class="content-box-image"><img src="assets/images/screenshots/portfolio.jpg" alt="Portfolio"></div>
-                  <h3 class="content-box-title font-serif">Portfolio</h3></a></div>
-              <div class="col-md-4 col-sm-6 col-xs-12"><a class="content-box" href="index_restaurant.html">
-                  <div class="content-box-image"><img src="assets/images/screenshots/restaurant.jpg" alt="Restaurant"></div>
-                  <h3 class="content-box-title font-serif">Restaurant</h3></a></div>
-              <div class="col-md-4 col-sm-6 col-xs-12"><a class="content-box" href="index_finance.html">
-                  <div class="content-box-image"><img src="assets/images/screenshots/finance.jpg" alt="Finance"></div>
-                  <h3 class="content-box-title font-serif">Finance</h3></a></div>
-              <div class="col-md-4 col-sm-6 col-xs-12"><a class="content-box" href="index_landing.html">
-                  <div class="content-box-image"><img src="assets/images/screenshots/landing.jpg" alt="Landing"></div>
-                  <h3 class="content-box-title font-serif">Landing</h3></a></div>
-              <div class="col-md-4 col-sm-6 col-xs-12"><a class="content-box" href="index_photography.html">
-                  <div class="content-box-image"><img src="assets/images/screenshots/photography.jpg" alt="Photography"></div>
-                  <h3 class="content-box-title font-serif">Photography</h3></a></div>
-              <div class="col-md-4 col-sm-6 col-xs-12"><a class="content-box" href="index_shop.html">
-                  <div class="content-box-image"><img src="assets/images/screenshots/shop.jpg" alt="Shop"></div>
-                  <h3 class="content-box-title font-serif">Shop</h3></a></div>
-              <div class="col-md-4 col-sm-6 col-xs-12"><a class="content-box" href="index_op_fullscreen_gradient_overlay.html">
-                  <div class="content-box-image"><img src="assets/images/screenshots/one_page.jpg" alt="One Page"></div>
-                  <h3 class="content-box-title font-serif">One Page</h3></a></div>
-            </div>
-          </div>
-        </section>
       </div>
-
+    </section>
+  </div>
 </template>
 
 <script>
 export default {
-    name: "Index",
-      data() {
+  name: "Index",
+  data() {
     return {
-        projects: [],
-    }
+      projects: [],
+      project: [],
+    };
   },
-    mounted() {
-        $(document).trigger('chenge')
-         this.getProject() 
+  mounted() {
+    $(document).trigger("chenge");
+    this.getProjects();
+  },
+  methods: {
+    getProjects() {
+      this.axios.get("http://127.0.0.1:8000/api/projects")
+      .then((res) => {
+        this.projects = res.data.data;
+      })
+      .finally(v => {
+        $(document).trigger("chenge");
+      })
     },
-      methods: {
-    getProject() {
-        this.axios.get('http://127.0.0.1:8000/api/projects')
-        .then( res => {
-            this.projects = res.data.data
-            console.log(this.projects)
-        })
-    }
-  }
+    getProject(id) {
+      this.axios.get(`http://127.0.0.1:8000/api/projects/${id}`)
+      .then((res) => {
+        this.project = res.data.data;
+        console.log(this.project)
+      })
+      .finally(v => {
+        $(document).trigger("chenge");
+      })
+    },
+  },
 };
 </script>
 

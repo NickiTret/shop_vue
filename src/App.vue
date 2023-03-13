@@ -181,6 +181,7 @@ export default {
           this.pages = res.data.data;
           let thisPage = this.$route.path;
           let page = this.pages.find((p) => p.link_page === thisPage);
+          console.log(this.$route.meta.dataInMeta)
         })
         .catch((error) => {
           console.log(error || error.message);
