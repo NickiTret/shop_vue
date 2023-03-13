@@ -9,7 +9,7 @@
       <div class="container">
         <div class="row">
           <div class="col-sm-6 col-sm-offset-3">
-            <h2 class="module-title font-alt">About</h2>
+            <h2 class="module-title font-alt">Обо мне</h2>
             <div class="module-subtitle font-serif">
               A wonderful serenity has taken possession of my entire soul, like
               these sweet mornings of spring which I enjoy with my whole heart.

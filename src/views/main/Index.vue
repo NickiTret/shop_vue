@@ -2,8 +2,8 @@
       <section class="bg-dark-30 showcase-page-header module parallax-bg" data-background="assets/images/showcase_bg.jpg">
         <div class="titan-caption">
           <div class="caption-content">
-            <div class="font-alt mb-30 titan-title-size-1">Powerful. Multipurpose.</div>
-            <div class="font-alt mb-40 titan-title-size-4">100+ Layouts</div><a class="section-scroll btn btn-border-w btn-round" href="#demos">See Demos</a>
+            <div class="font-alt mb-30 titan-title-size-1">Сайт портфолио. Дизайн и веб-разработка.</div>
+            <div class="font-alt mb-40 titan-title-size-4">Третьяков Никита</div><a class="section-scroll btn btn-border-w btn-round" href="#demos">см. Резюме</a>
           </div>
         </div>
       </section>
@@ -48,9 +48,24 @@
 <script>
 export default {
     name: "Index",
+      data() {
+    return {
+        projects: [],
+    }
+  },
     mounted() {
         $(document).trigger('chenge')
+         this.getProject() 
+    },
+      methods: {
+    getProject() {
+        this.axios.get('http://127.0.0.1:8000/api/projects')
+        .then( res => {
+            this.projects = res.data.data
+            console.log(this.projects)
+        })
     }
+  }
 };
 </script>
 
